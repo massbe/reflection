@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Components;
-
 
 class JsonableExperiment extends Jsonable
 {

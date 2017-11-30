@@ -1,26 +1,23 @@
 <?php
 
-
 namespace Components;
-
 
 abstract class Jsonable
 {
-    protected $arrayToJson;
-
     public function __toString()
     {
         return json_encode($this->arrayToJson);
     }
 
-    public function toArray($object)
+    public function toArray()
     {
-        $objectReflection = new \ReflectionClass($object);
+        $objectReflection = new \ReflectionClass($this);
 
         foreach ($objectReflection->getProperties(\ReflectionProperty::IS_PUBLIC) as $item){
-            if(is_int($item->getValue($object)) || is_string($item->getValue($object)) || is_array($item->getValue($object))){
-                $this->arrayToJson[$item->getName()] = $item->getValue($object);
+            if(is_int($item->getValue($this)) || is_string($item->getValue($this)) || is_array($item->getValue($this))){
+                $this->arrayToJson[$item->getName()] = $item->getValue($this);
             }
         }
+        return $this->arrayToJson;
     }
 }
