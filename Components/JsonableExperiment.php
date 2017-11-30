@@ -20,11 +20,6 @@ class JsonableExperiment extends Jsonable
         $this->boolVar = $boolVar;
     }
 
-    public function __toString()
-    {
-        return $this->arrayToJson;
-    }
-
     public function getPrivateField()
     {
         return $this->privateField;

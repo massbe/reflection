@@ -8,7 +8,10 @@ abstract class Jsonable
 {
     protected $arrayToJson;
 
-    abstract public function __toString();
+    public function __toString()
+    {
+        return $this->arrayToJson;
+    }
 
     public function toJson()
     {
@@ -17,14 +20,12 @@ abstract class Jsonable
 
     public function toArray($object)
     {
-        $arrayToJson = [];
         $objectReflection = new \ReflectionClass($object);
 
         foreach ($objectReflection->getProperties(\ReflectionProperty::IS_PUBLIC) as $item){
             if(is_int($item->getValue($object)) || is_string($item->getValue($object)) || is_array($item->getValue($object))){
-                $arrayToJson[$item->getName()] = $item->getValue($object);
+                $this->arrayToJson[$item->getName()] = $item->getValue($object);
             }
         }
-        $this->arrayToJson = $arrayToJson;
     }
 }

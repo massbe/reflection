@@ -17,4 +17,4 @@ $object->toArray($object);
 
 //$object->setAllObject(json_encode($arrayToJson));
 
-echo Controller::action($object);
+var_dump(Controller::action($object));
