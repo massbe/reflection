@@ -4,39 +4,27 @@
 namespace Components;
 
 
-class Jsonable
+abstract class Jsonable
 {
-    public $id;
-    public $name;
-    public $fieldLOL;
-    public $boolVar;
-    private $privateField;
-    private $allObject;
+    protected $arrayToJson;
 
-    public function __construct($id, $name, $fieldLOL, $boolVar)
+    abstract public function __toString();
+
+    public function toJson()
     {
-        $this->id = $id;
-        $this->name = $name;
-        $this->fieldLOL = $fieldLOL;
-        $this->boolVar = $boolVar;
+        return json_encode($this->arrayToJson);
     }
 
-    public function __toString()
+    public function toArray($object)
     {
-        return $this->allObject;
-    }
+        $arrayToJson = [];
+        $objectReflection = new \ReflectionClass($object);
 
-    public function setAllObject($value){
-        $this->allObject = $value;
-    }
-
-    public function getPrivateField()
-    {
-        return $this->privateField;
-    }
-
-    public function setPrivateField($privateField)
-    {
-        $this->privateField = $privateField;
+        foreach ($objectReflection->getProperties(\ReflectionProperty::IS_PUBLIC) as $item){
+            if(is_int($item->getValue($object)) || is_string($item->getValue($object)) || is_array($item->getValue($object))){
+                $arrayToJson[$item->getName()] = $item->getValue($object);
+            }
+        }
+        $this->arrayToJson = $arrayToJson;
     }
 }
