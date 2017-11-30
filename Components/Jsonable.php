@@ -13,11 +13,6 @@ abstract class Jsonable
         return json_encode($this->arrayToJson);
     }
 
-    public function toJson()
-    {
-        return json_encode($this->arrayToJson);
-    }
-
     public function toArray($object)
     {
         $objectReflection = new \ReflectionClass($object);
