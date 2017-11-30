@@ -10,7 +10,7 @@ abstract class Jsonable
 
     public function __toString()
     {
-        return $this->arrayToJson;
+        return json_encode($this->arrayToJson);
     }
 
     public function toJson()
